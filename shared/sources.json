@@ -322,6 +322,13 @@
     "color": "teal",
     "interval": 3600000
   },
+  "techcrunch": {
+    "name": "TechCrunch",
+    "column": "tech",
+    "home": "https://techcrunch.com",
+    "color": "green",
+    "interval": 1800000
+  },
   "hackernews": {
     "name": "Hacker News",
     "type": "hottest",

@@ -259,6 +259,13 @@ export const originSources = {
     home: "https://solidot.org",
     interval: Time.Slow,
   },
+  "techcrunch": {
+    name: "TechCrunch",
+    color: "green",
+    column: "tech",
+    home: "https://techcrunch.com",
+    interval: Time.Common,
+  },
   "hackernews": {
     name: "Hacker News",
     color: "orange",
