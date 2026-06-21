@@ -17,9 +17,16 @@ interface Res {
 }
 
 const share = defineSource(async () => {
-  const res = await Promise.all(["create", "ideas", "programmer", "share"]
+  // v2ex sits behind Cloudflare and intermittently 403s requests from
+  // datacenter IPs (e.g. CF Pages workers). Fetch each node independently and
+  // keep whatever succeeds, so one blocked node doesn't fail the whole card.
+  const results = await Promise.allSettled(["create", "ideas", "programmer", "share"]
     .map(k => myFetch(`https://www.v2ex.com/feed/${k}.json`) as Promise<Res>))
-  return res.map(k => k.items).flat().map(k => ({
+  const items = results
+    .filter((r): r is PromiseFulfilledResult<Res> => r.status === "fulfilled")
+    .flatMap(r => r.value.items)
+  if (!items.length) throw new Error("Failed to fetch any v2ex feed")
+  return items.map(k => ({
     id: k.id,
     title: k.title,
     extra: {
