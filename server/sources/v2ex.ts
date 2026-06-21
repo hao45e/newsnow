@@ -21,7 +21,12 @@ const share = defineSource(async () => {
   // datacenter IPs (e.g. CF Pages workers). Fetch each node independently and
   // keep whatever succeeds, so one blocked node doesn't fail the whole card.
   const results = await Promise.allSettled(["create", "ideas", "programmer", "share"]
-    .map(k => myFetch(`https://www.v2ex.com/feed/${k}.json`) as Promise<Res>))
+    .map(k => myFetch(`https://www.v2ex.com/feed/${k}.json`, {
+      // v2ex's Cloudflare 403s are often transient; retry them with a delay
+      // (myFetch's default retryStatusCodes does not include 403).
+      retryStatusCodes: [403, 408, 409, 425, 429, 500, 502, 503, 504],
+      retryDelay: 1000,
+    }) as Promise<Res>))
   const items = results
     .filter((r): r is PromiseFulfilledResult<Res> => r.status === "fulfilled")
     .flatMap(r => r.value.items)
