@@ -235,6 +235,15 @@ export const originSources = {
     interval: Time.Realtime,
     home: "https://www.gelonghui.com",
   },
+  "polymarket": {
+    name: "Polymarket",
+    color: "blue",
+    title: "热门市场",
+    column: "finance",
+    type: "hottest",
+    interval: Time.Common,
+    home: "https://polymarket.com",
+  },
   "fastbull": {
     name: "法布财经",
     color: "emerald",

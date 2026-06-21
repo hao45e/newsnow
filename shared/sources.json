@@ -288,6 +288,15 @@
     "color": "blue",
     "interval": 120000
   },
+  "polymarket": {
+    "title": "热门市场",
+    "name": "Polymarket",
+    "type": "hottest",
+    "column": "finance",
+    "home": "https://polymarket.com",
+    "color": "blue",
+    "interval": 1800000
+  },
   "fastbull": {
     "redirect": "fastbull-express",
     "name": "法布财经",
